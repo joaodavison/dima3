@@ -1,0 +1,9 @@
+Escreveremos o driver na UART no arquivo console.c (análogo ao arquivo do S32G2)
+
+O console.c terá 2 funções:
+- void console_init(void): é chamado pelo bsp_runtime_init do kernel.
+- void bsp_put_char(char c): é chamado pelo kernel quando necessário.
+
+Duas abordagens:
+- desenvolver os drivers no linux e depois migrar para o XKY
+- desenvolver os drivers e chamá-los na inicialização da Jetson (pelo start.S)

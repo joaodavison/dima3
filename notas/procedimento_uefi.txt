@@ -1,17 +1,24 @@
 # CONFIGURAÇÃO DA UEFI E DO GRUB
 
+## Gravação de fábrica da Jetson
+- Usar o aplicativo NVidia SDK BootManager
+Nota: é necessário configurar a USB da seguinte forma:
+echo -1> /sys/module/usbcore/parameters/autosuspend 
+
 ## Setup da rede da Jetson
 - Conectar o cabo USB à porta da Jetson oposta à porta do monitor
 - Iniciar a serial (Putty) apertando o ESC para entrar nas opções de boot.
 - Escolher BootManager > UEFI shell
 - Configurar ip estático: ifconfig -s eth0 static 192.168.0.2 255.255.255.0 192.168.0.1
+- Nota: IP do host 192.168.0.1 e do target (Jetson) 192.168.0.2
 - Nota: para ajudar usar help cmd ou cmd -?
 
 ## Carregando binario manualmente (superseeded pelo GRUB)
 - A imagem do XKY precisa ser buildada, convertida (comando aarch64-linux-gnu-objcopy - ver makefile) 
-- Entrar no filesystem FS3: comando "fs3:"
+- Entrar no filesystem FS3, onde há direito de escrita, comando "fs3:"
+Nota: o comando map mostra a alocação do FS3 na EMMC (flash de 64 Gb)
 - Ligar o servidor de TFTP (host PC)
-- Conectar cliente: tftp 192.168.0.1 kernel.efi
+- Conectar cliente (target) e baixar arquivo: tftp 192.168.0.1 kernel.efi
 
 ## GRUB
 - Seguir procedimento do grub: https://docs.nvidia.com/jetson/archives/r35.4.1/DeveloperGuide/text/SD/Bootloader/UEFI.html#grub-support, incluindo o passo adicional
@@ -29,3 +36,15 @@ menuentry 'XKY' {
 Nota: ao clicar C no menu do Grub pode-se ter acesso à shell para testar os comandos que farão parte da entry.
 
 Nota: se der problema na inicialização (corromper), entrar no UEFI shell: FS3: cd EFI/BOOT; cp Backup_BOOTAA64.efi BOOTAA64.efi
+
+Nota: A árvore de inicialização fica assim:
+- UEFI BootManager
+        -> UEFI shell
+        -> GRUB
+                -> Ubuntu
+                -> XKY
+                -> pressionar 'c' para shell
+
+Grub extende o UEFI (módulo grubx64.efi), facilitando as operações de bootloader. UEFI é apenas um firmware de interface xom o HW.
+
+Root filesystem (RFS) é o ponto de montagem "/"

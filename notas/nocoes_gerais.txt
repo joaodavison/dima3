@@ -1,0 +1,46 @@
+Participantes: Hugo, José Curva, João, Ana Rita, Pedro Carmo, RC, João, Arcaro
+
+
+|----------|----------|----------|-------|
+|   APP1   |  APP 2   |   APP 3  | APP 4 |   <- exception level 0 = usermode
+| POS-bare | POS-apex | POS-apex | Linux |   <- exception level 1 = guest OS
+|----------|----------|----------|-------|
+|               PMK Hypervisor           |   <- exception level 2 = Hypervisor
+|----------------------------------------|
+
+O bootloader precisa entregar para o hypervisor em EL2 (*e modo não-seguro)
+
+Pacotes de trabalho para a semana:
+- bootloader - OK
+- driver para bsp
+- linux em partição XKY
+
+Sequencia de inicialização:
+BOOTLOADER -> start.S -> PMK/core/init.c -> idle (aguarda interrupçoes)
+
+* bootloader faz config inicial da placa
+* start.S é o arquivo inicial do BSP para onde o bootloader manda. Configura interrupções (tabela VBAR)
+* init.c é a inicialização do PMK: chama funções de módulos BSP e chama funções agnosticas do PMK (ex. pmk_scheduler)
+
+* crt0.S é o C-runtime0, chamado a cada troca de contexto do POS, dando acesso ao bare ou ao apex. É como um start.S de cada partição.
+
+Nota: na Jetson as aplicações serão executadas em EL1 ao invés de EL0 (rationale ?)
+
+
+VMSA v8 é a parte do standard ARM que fala da virtual memory.
+
+developer.arm.com/documentation
+
+Exception handlers configurados no VBAR_EL#.
+(o termo exception inclui interrupções de hardware e syscalls)
+
+IRQ: interrupção normal
+FIQ: fast interrupt, têm maior prioridade
+
+Quando a interrupção ocorre o ISR do hypervisorfaz imediatamente o tratamento, registrando uma interrupção virtual;
+Quando a janela de execução da partição dona da interrupção virtual acontece, o ISR do POS faz o tratamento.
+Interrupções são configuradas no start.S; interrupções virtuais são configuradas no crt0.S.
+
+Arquitetura do PMK (figura?)
+- Kernel PMK chama funções do BSP (processor specific fcns);
+- BSP functions chamam os device drivers (específico do periférico)
