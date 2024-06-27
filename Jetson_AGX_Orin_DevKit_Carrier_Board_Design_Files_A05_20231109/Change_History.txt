@@ -1,0 +1,9 @@
+# Change History
+ 
+## [20221003 - 2022-10-3]
+### Updated
+- P3737_A04_Concept_schematics.pdf to include note on page 13 (10G RJ-45) related to polarity swap (flip).
+
+## [20231109 - 2023-11-9]
+### Updated
+- Added R1188 (10K pull down).
