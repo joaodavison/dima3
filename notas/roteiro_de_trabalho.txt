@@ -1,0 +1,20 @@
+--- Setup ---
+1. Setup da placa
+2. Boot flow
+3. Bootloader (entregar em EL2 non-sec)
+4. Subir debug da placa
+
+--- Hypervisor ---
+5. start.S (VBAR)
+6. Implementar UART driver
+7. MMU (contexto idle, kernel)
+8. Interrupções / handlers
+9. Timers CPU
+10. Scheduler start
+11. Validação interrupt handlers
+12. Context switching (VCPU, MMU)
+
+--- POS ---
+13. crt0, bare
+14. Syscalls PMK
+15. Testes
