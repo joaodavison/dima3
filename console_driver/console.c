@@ -1,7 +1,8 @@
 // Assumed B_UART_FCR_FIFOE and  B_UART_FCR_FIFO64 are set
 
+#include <stdint.h>
 #define SerialRegisterBase (0x031d0000u)
-#define PcdSerialClockRate (407347200u)
+#define PcdSerialClockRate (1843200)
 #define PcdSerialBaudRate (115200u)
 
 #define BIT0 (1u)
@@ -42,11 +43,11 @@
 #define   B_UART_MSR_DCD     BIT7
 
 unsigned char SerialPortReadRegister(unsigned int  Base, unsigned int  Offset) {
-  return *((unsigned char*)(Base + Offset * 4u));
+  return *((unsigned char*)(Base + Offset));
 }
 
 void SerialPortWriteRegister(unsigned int  Base, unsigned int  Offset, unsigned char  Value) {
-  *((unsigned char*)(Base + Offset * 4u)) = Value;
+  *((unsigned char*)(Base + Offset)) = Value;
 }
 
 unsigned int Tegra16550SerialPortWrite(unsigned char *Buffer, unsigned int NumberOfBytes) {
@@ -180,6 +181,9 @@ void console_init(void) {
 
 void bsp_putchar(char c) {
   // Wait for the serial port to be ready, to make sure both the transmit FIFO and shift register empty.
-  while ((SerialPortReadRegister(SerialRegisterBase, R_UART_LSR) & (B_UART_LSR_TEMT | B_UART_LSR_TXRDY)) != (B_UART_LSR_TEMT | B_UART_LSR_TXRDY)) {}
-  SerialPortWriteRegister(SerialRegisterBase, R_UART_TXBUF, c);
+  // while ((SerialPortReadRegister(SerialRegisterBase, R_UART_LSR) & (B_UART_LSR_TEMT | B_UART_LSR_TXRDY)) != (B_UART_LSR_TEMT | B_UART_LSR_TXRDY)) {}
+  // SerialPortWriteRegister(SerialRegisterBase, R_UART_TXBUF, c);
+  unsigned char *reg;
+  reg = (unsigned char*) 0x31d0000;
+  *reg = c;
 }
