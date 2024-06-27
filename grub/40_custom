@@ -1,0 +1,29 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+
+menuentry 'Jetson Linux' {
+        echo "Booting Jetson Linux..."
+	echo "Changed by Pedro..."
+        search --no-floppy --fs-uuid --set=root bbf7e7f7-f795-4633-8727-328b3f4d2f70
+        linux   /boot/Image "root=PARTUUID=e59c603a-d589-4830-a819-3f0f4e21907a rw rootwait rootfstype=ext4 mminit_loglevel=4 console=ttyTCU0,115200 console=ttyAMA0,115200 firmware_class.path=/etc/firmware fbcon=map:0 net.ifnames=0 nospectre_bhb video=efifb:off console=tty0 nv-auto-config bl_prof_dataptr=2031616@0x102C610000 bl_prof_ro_ptr=65536@0x102C600000"
+        initrd  /boot/initrd
+}
+
+menuentry "XKY Boot" {
+        echo "Booting XKY..."
+	net_add_addr efinet0 efinet0 192.168.0.2
+	set root=(tftp,192.168.0.1)
+	echo "Loaded root $root"
+	linux /kernel.efi boot=tftp
+	echo "booting with kernel.efi"
+        boot
+}
+
+menuentry "System restart" {
+        echo "System rebooting..."
+        reboot
+}
