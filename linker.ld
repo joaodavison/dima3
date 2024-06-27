@@ -1,27 +1,28 @@
+OUTPUT_ARCH(aarch64)
+
 ENTRY(_start)
 
+MEMORY
+{
+    ram_code      : ORIGIN = 0x80000000, LENGTH = 0x00040000
+    ram_data      : ORIGIN = 0x80040000, LENGTH = 0x10FC0000
+}
+
 SECTIONS {
-    . = 0x40000000; /* Adjust this load address as needed */
+    . = ORIGIN(ram_code);
 
-    .header ALIGN(4) : {
-        *(.header)
-    }
-
-    .text ALIGN(4) : {
+    .text : ALIGN_WITH_INPUT {
         *(.text)
-    }
-
-    .rodata ALIGN(4) : {
         *(.rodata)
-    }
+    } > ram_code
 
-    .data ALIGN(4) : {
+    .data : ALIGN_WITH_INPUT {
         *(.data)
-    }
+    } > ram_data
 
-    .bss ALIGN(4) : {
+    .bss : ALIGN_WITH_INPUT {
         *(.bss)
         *(COMMON)
-    }
+    } > ram_data
 }
 

@@ -1,6 +1,6 @@
 // Assumed B_UART_FCR_FIFOE and  B_UART_FCR_FIFO64 are set
 
-#define SerialRegisterBase (0x03100000u)
+#define SerialRegisterBase (0x031d0000u)
 #define PcdSerialClockRate (407347200u)
 #define PcdSerialBaudRate (115200u)
 
