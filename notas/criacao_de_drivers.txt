@@ -1,3 +1,5 @@
+## Abordagens
+
 Escreveremos o driver na UART no arquivo console.c (análogo ao arquivo do S32G2)
 
 O console.c terá 2 funções:
@@ -7,3 +9,21 @@ O console.c terá 2 funções:
 Duas abordagens:
 - desenvolver os drivers no linux e depois migrar para o XKY
 - desenvolver os drivers e chamá-los na inicialização da Jetson (pelo start.S)
+
+## Compilação
+
+Procedimento:
+- make clean
+- make install
+- scp kernel.efi -> PC servidor TFTP
+- Observar a COM7
+
+## Debug
+
+Manual do arm: procurar ARM architecture reference manual for A-profile architectture (site developer.arm.com)
+
+ESR = exception syndrome register
+
+Códigos de ESR são exibidos quando há exceção
+procurar significado em esr.arm64.dev
+
