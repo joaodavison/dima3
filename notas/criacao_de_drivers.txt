@@ -16,7 +16,8 @@ Procedimento:
 - make clean
 - make install
 - scp kernel.efi -> PC servidor TFTP
-- Observar a COM7
+- Observar a COM5 para (aplicação)
+- Observar a COM7 para (secure monitor do EL3)
 
 ## Debug
 
@@ -27,3 +28,5 @@ ESR = exception syndrome register
 Códigos de ESR são exibidos quando há exceção
 procurar significado em esr.arm64.dev
 
+Binary dump:
+aarch64-linux-gnu-objdump -D kernel.elf >> kernel.dump

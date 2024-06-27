@@ -1,9 +1,9 @@
-Participantes: Hugo, José Curva, João, Ana Rita, Pedro Carmo, RC, João, Arcaro
+Participantes: Hugo, José Curva, João, Ana Rita, Pedro Carmo, RC, JC, Arcaro
 
 
 |----------|----------|----------|-------|
-|   APP1   |  APP 2   |   APP 3  | APP 4 |   <- exception level 0 = usermode
-| POS-bare | POS-apex | POS-apex | Linux |   <- exception level 1 = guest OS
+|   APP1   |  APP 2   |   APP 3  | APP 4 |   <- exception level 0 = Usermode
+| POS-bare | POS-apex | POS-apex | Linux |   <- exception level 1 = Guest OS
 |----------|----------|----------|-------|
 |               PMK Hypervisor           |   <- exception level 2 = Hypervisor
 |----------------------------------------|
@@ -12,7 +12,7 @@ O bootloader precisa entregar para o hypervisor em EL2 (*e modo não-seguro)
 
 Pacotes de trabalho para a semana:
 - bootloader - OK
-- driver para bsp
+- driver para bsp - in progress
 - linux em partição XKY
 
 Sequencia de inicialização:
