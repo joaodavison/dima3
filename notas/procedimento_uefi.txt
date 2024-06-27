@@ -1,0 +1,29 @@
+CONFIGURAÇÃO DA UEFI E DO GRUB
+
+- Conectar o cabo USB à porta da Jetson oposta à porta do monitor
+- Iniciar a serial apertando o ESC para entrar nas opções de boot.
+- Escolher BootManager > UEFI shell
+- Configurar ip estático: ifconfig -s eth0 static 192.168.0.2 255.255.255.0 192.168.0.1
+- Nota: para ajudar usar help cmd ou cmd -?
+
+- A imagem do XKY precisa ser buildada, convertida (comando aarch64-linux-gnu-objcopy ?? TBD) 
+- Entrar no filesystem FS3: comando "fs3:"
+- Ligar o servidor de TFTP (host PC)
+- Conectar cliente: tftp 192.168.0.1 XKYAPP.bin
+
+- Seguir procedimento do grub: https://docs.nvidia.com/jetson/archives/r35.4.1/DeveloperGuide/text/SD/Bootloader/UEFI.html#grub-support, incluindo o passo adicional
+
+- No passo 6 do procedimento GRUB, adicionar entry para XKY. Conteúdo:
+menuentry 'XKY' {
+        echo "Booting XKY..."
+        net_add_addr efinet0 efinet0 192.168.0.2
+        set root=(tftp,192.168.0.1)
+#old    set root=(hd0,gpt10)
+        linux /XKYAPP.efi boot=tftp
+        boot
+}
+
+Nota: ao clicar C no menu do Grub pode-se ter acesso à shell para testar os comandos que farão parte da entry.
+
+Nota: se der problema na inicialização (corromper), entrar no UEFI shell: FS3: cd EFI/BOOT; cp Backup_BOOTAA64.efi BOOTAA64.efi
+
