@@ -19,6 +19,9 @@ Procedimento:
 - Observar a COM5 para (aplicação)
 - Observar a COM7 para (secure monitor do EL3)
 
+Nota: aarch64-linux-gnu-objcopy: kernel.elf: invalid bfd target
+Deve-se usar aarch64-linux-gnu-objcopy versão 2.38 (no Ubuntu 22.04)
+
 ## Debug
 
 Manual do arm: procurar ARM architecture reference manual for A-profile architectture (site developer.arm.com)
@@ -30,3 +33,10 @@ procurar significado em esr.arm64.dev
 
 Binary dump:
 aarch64-linux-gnu-objdump -D kernel.elf >> kernel.dump
+
+## Problemas e soluções
+
+- O base address da UART estava incorreto
+- O endereço de start estava errado (deveria ser 0x80000000)
+- O código do console_init() está com algum problema, mas não estamos precisando dele para o setup da UART
+

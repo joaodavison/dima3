@@ -11,9 +11,9 @@ Participantes: Hugo, José Curva, João, Ana Rita, Pedro Carmo, RC, JC, Arcaro
 O bootloader precisa entregar para o hypervisor em EL2 (*e modo não-seguro)
 
 Pacotes de trabalho para a semana:
-- bootloader - OK
-- driver para bsp - in progress
-- linux em partição XKY
+- bootloader - OK (via UEFI e GRUB)
+- driver para bsp - OK (somente write())
+- linux em partição XKY - in progress
 
 Sequencia de inicialização:
 BOOTLOADER -> start.S -> PMK/core/init.c -> idle (aguarda interrupçoes)

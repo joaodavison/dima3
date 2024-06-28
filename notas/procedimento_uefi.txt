@@ -28,10 +28,12 @@ menuentry 'XKY' {
         echo "Booting XKY..."
         net_add_addr efinet0 efinet0 192.168.0.2
         set root=(tftp,192.168.0.1)
-#old set root=(hd0,gpt10)
-        linux /XKYAPP.efi boot=tftp
+        linux /kernel.efi boot=tftp
         boot
 }
+
+Nota: para produção, entrar em UEFI shell e carregar no FS3: por TFTP. No menuentry substituir por:
+        set root=(hd0,gpt10)
 
 Nota: ao clicar C no menu do Grub pode-se ter acesso à shell para testar os comandos que farão parte da entry.
 

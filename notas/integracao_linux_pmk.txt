@@ -1,0 +1,21 @@
+O linux será chamado diretamente pelo PMK ou haverá um POS intermediário? PMK->POS->linux
+
+A aplicação será compilada pelo próprio linux embarcado ou por um linux no host pc?
+
+Ideia: PMK chamar a imagem do linux que está atualmente sendo chaada pelo GRUB
+
+MB2 -> UEFI -> GRUB (EL2) --------------------->  [          Linux          ]
+                          |                         ^                     ^
+                          |                         |                     |
+                          |                        step                   |
+                          |                         |                     |
+                          L> PMK --schedules---> Part1 --init-->GRUB(EL1)-|
+                                 |
+                                 |
+                                 |
+                                 L-schedules---> Part 2 (bare)
+
+* GRUB (EL1) é uma segunda instância do GRUB que age como um crt0.
+
+Desafio1: compilar o GRUB para que seja chamado pelo PMK. - in progress
+Desafio2: associar a imagem do linux à chamada do GRUB
