@@ -44,3 +44,4 @@ Interrupções são configuradas no start.S; interrupções virtuais são config
 Arquitetura do PMK (figura?)
 - Kernel PMK chama funções do BSP (processor specific fcns);
 - BSP functions chamam os device drivers (específico do periférico)
+- O BSP é integrado com o PMK, enquanto os drivers poderiam ser modulares se houvesse um device model.

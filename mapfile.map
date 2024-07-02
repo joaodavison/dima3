@@ -1,0 +1,79 @@
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram_code         0x0000000080000000 0x0000000000040000
+ram_data         0x0000000080040000 0x0000000010fc0000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000080000000                . = ORIGIN (ram_code)
+
+.text           0x0000000080000000      0x4c4
+ *(.text)
+ .text          0x0000000080000000       0x68 entry.o
+                0x0000000080000000                _start
+ .text          0x0000000080000068       0x40 kernel.o
+                0x0000000080000068                kernel_main
+                0x00000000800000a0                kernel_second
+ .text          0x00000000800000a8      0x41c console.o
+                0x00000000800000a8                SerialPortReadRegister
+                0x00000000800000d0                SerialPortWriteRegister
+                0x0000000080000108                Tegra16550SerialPortWrite
+                0x00000000800001f8                Tegra16550SerialPortRead
+                0x0000000080000280                Tegra16550SerialPortSetAttributes
+                0x0000000080000350                console_init
+                0x000000008000049c                bsp_putchar
+ *(.rodata)
+
+.rodata.vectors
+                0x0000000080000800      0x7a0
+ .rodata.vectors
+                0x0000000080000800      0x7a0 entry.o
+
+.eh_frame       0x0000000080000fa0      0x108
+ .eh_frame      0x0000000080000fa0       0x40 kernel.o
+ .eh_frame      0x0000000080000fe0       0xc8 console.o
+                                         0xe0 (size before relaxing)
+
+.iplt           0x00000000800010a8        0x0
+ .iplt          0x00000000800010a8        0x0 entry.o
+
+.rela.dyn       0x00000000800010a8        0x0
+ .rela.iplt     0x00000000800010a8        0x0 entry.o
+
+.data           0x0000000080040000      0x200
+ *(.data)
+ .data          0x0000000080040000      0x200 entry.o
+ .data          0x0000000080040200        0x0 kernel.o
+ .data          0x0000000080040200        0x0 console.o
+
+.igot.plt       0x0000000080040200        0x0
+ .igot.plt      0x0000000080040200        0x0 entry.o
+
+.bss            0x0000000080040200        0x0
+ *(.bss)
+ .bss           0x0000000080040200        0x0 entry.o
+ .bss           0x0000000080040200        0x0 kernel.o
+ .bss           0x0000000080040200        0x0 console.o
+ *(COMMON)
+LOAD entry.o
+LOAD kernel.o
+LOAD console.o
+OUTPUT(kernel.elf elf64-littleaarch64)
+LOAD linker stubs
+
+.comment        0x0000000000000000       0x26
+ .comment       0x0000000000000000       0x26 kernel.o
+                                         0x27 (size before relaxing)
+ .comment       0x0000000000000026       0x27 console.o
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 kernel.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 console.o

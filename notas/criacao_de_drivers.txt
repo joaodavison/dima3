@@ -24,7 +24,7 @@ Deve-se usar aarch64-linux-gnu-objcopy versão 2.38 (no Ubuntu 22.04)
 
 ## Debug
 
-Manual do arm: procurar ARM architecture reference manual for A-profile architectture (site developer.arm.com)
+Manual do arm: procurar ARM architecture reference manual for A-profile architecture (site developer.arm.com)
 
 ESR = exception syndrome register
 

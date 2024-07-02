@@ -22,6 +22,7 @@ Nota: o comando map mostra a alocação do FS3 na EMMC (flash de 64 Gb)
 
 ## GRUB
 - Seguir procedimento do grub: https://docs.nvidia.com/jetson/archives/r35.4.1/DeveloperGuide/text/SD/Bootloader/UEFI.html#grub-support, incluindo o passo adicional
+- Nota: explicações adicionais em https://wiki.archlinux.org/title/GRUB_(Portugu%C3%AAs)
 
 - No passo 6 do procedimento GRUB, adicionar entry para XKY. Conteúdo:
 menuentry 'XKY' {

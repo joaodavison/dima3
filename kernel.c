@@ -2,10 +2,10 @@
 
 void kernel_main() {
     // Your kernel code here
-    bsp_putchar('t');
-    bsp_putchar('e');
-    bsp_putchar('s');
-    bsp_putchar('t');
+    bsp_putchar('D');
+    bsp_putchar('I');
+    bsp_putchar('M');
+    bsp_putchar('A');
     bsp_putchar('\n');
 
     while (1) {
