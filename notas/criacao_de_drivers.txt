@@ -1,6 +1,7 @@
 ## Abordagens
 
 Escreveremos o driver na UART no arquivo console.c (análogo ao arquivo do S32G2)
+Nota: podemos utilizar o bootloader do UEFU como base (https://github.com/NVIDIA/edk2-nvidia)
 
 O console.c terá 2 funções:
 - void console_init(void): é chamado pelo bsp_runtime_init do kernel.
@@ -20,7 +21,7 @@ Procedimento:
 - Observar a COM7 para (secure monitor do EL3)
 
 Nota: aarch64-linux-gnu-objcopy: kernel.elf: invalid bfd target
-Deve-se usar aarch64-linux-gnu-objcopy versão 2.38 (no Ubuntu 22.04)
+Deve-se usar aarch64-linux-gnu-objcopy versão 2.38 (disponível a partir do Ubuntu 22.04)
 
 ## Debug
 
@@ -39,4 +40,5 @@ aarch64-linux-gnu-objdump -D kernel.elf >> kernel.dump
 - O base address da UART estava incorreto
 - O endereço de start estava errado (deveria ser 0x80000000)
 - O código do console_init() está com algum problema, mas não estamos precisando dele para o setup da UART
+- O arquivo ELF precisava de um magic number que foi adicionado utilizando um script python (replace.py)
 

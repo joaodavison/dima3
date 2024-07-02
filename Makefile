@@ -18,8 +18,10 @@ console:
 
 convert:
 	$(OBJCPY) -j .text -j .sdata -j .data -j .dynamic -j .dynsym -j .rel -j .rela -j .reloc --target=efi-app-aarch64 kernel.elf kernel.efi
+
 magic:
 	python replace.py	
+	
 offset:
 	$(OBJCPY) --change-start=0x80000000 kernel.elf
 
