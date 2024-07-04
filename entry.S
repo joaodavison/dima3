@@ -97,8 +97,8 @@ _start:
     //mov x27, #0xc0de
 
     // Call kernel main
-     //mov x0, 0x30
-     //bl bsp_putchar
+    mov x0, 0x30
+    bl bsp_putchar
     bl kernel_main
 
     // Infinite 

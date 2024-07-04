@@ -1,16 +1,17 @@
 # CONFIGURAÇÃO DA UEFI E DO GRUB
 
 ## Gravação de fábrica da Jetson
-- Usar o aplicativo NVidia SDK BootManager
+- Usar o aplicativo NVidia SDK Manager (https://developer.nvidia.com/sdk-manager, funciona para Ubuntu 20 e 22 apenas, ou seja, not 24)
 Nota: é necessário configurar a USB da seguinte forma:
-echo -1> /sys/module/usbcore/parameters/autosuspend 
+sudo su -c "echo -1> /sys/module/usbcore/parameters/autosuspend" 
+Nota: para a serial funcionar a Jetson precisa ser flashada com a opção AGX Orin "SDK"
 
 ## Setup da rede da Jetson
 - Conectar o cabo USB à porta da Jetson oposta à porta do monitor
 - Iniciar a serial (Putty) apertando o ESC para entrar nas opções de boot.
 - Escolher BootManager > UEFI shell
 - Configurar ip estático: ifconfig -s eth0 static 192.168.0.2 255.255.255.0 192.168.0.1
-- Nota: IP do host 192.168.0.1 e do target (Jetson) 192.168.0.2
+- Nota: IP do host 192.168.1.10 e do target (Jetson) 192.168.1.30
 - Nota: para ajudar usar help cmd ou cmd -?
 
 ## Carregando binario manualmente (superseeded pelo GRUB)
@@ -24,13 +25,24 @@ Nota: o comando map mostra a alocação do FS3 na EMMC (flash de 64 Gb)
 - Seguir procedimento do grub: https://docs.nvidia.com/jetson/archives/r35.4.1/DeveloperGuide/text/SD/Bootloader/UEFI.html#grub-support, incluindo o passo adicional
 - Nota: explicações adicionais em https://wiki.archlinux.org/title/GRUB_(Portugu%C3%AAs)
 
-- No passo 6 do procedimento GRUB, adicionar entry para XKY. Conteúdo:
+- No passo 6 do procedimento GRUB, adicionar entry para XKY no final do arquivo. Conteúdo:
+(ver arquivo 40_custom neste repositorio)
+menuentry 'Jetson Linux' {
+        echo "Booting Jetson Linux..."
+        search --no-floppy --fs-uuid --set=root ${RFS_FSUUID}
+        linux   /boot/Image ${CMD_LINE} --- usar as aspas
+        initrd  /boot/initrd
+}
 menuentry 'XKY' {
         echo "Booting XKY..."
-        net_add_addr efinet0 efinet0 192.168.0.2
-        set root=(tftp,192.168.0.1)
+        net_add_addr efinet0 efinet0 192.168.1.30
+        set root=(tftp,192.168.0.10)
         linux /kernel.efi boot=tftp
         boot
+}
+menuentry "System restart" {
+        echo "System rebooting..."
+        reboot
 }
 
 Nota: para produção, entrar em UEFI shell e carregar no FS3: por TFTP. No menuentry substituir por:
