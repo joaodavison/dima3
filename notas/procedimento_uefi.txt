@@ -11,8 +11,8 @@ Nota: para a serial funcionar a Jetson precisa ser flashada com a opção AGX Or
 - Conectar o cabo USB micro-B da Jetson ao PC host
 - Iniciar a serial (Putty) apertando o ESC para entrar nas opções de boot.
 - Escolher BootManager > UEFI shell
-- Configurar ip estático: ifconfig -s eth0 static 192.168.0.2 255.255.255.0 192.168.0.1
-- Nota: IP do host 192.168.1.77 e do target (Jetson) 192.168.1.30
+- Configurar ip estático: ifconfig -s eth0 static 10.5.1.3 255.255.255.0 10.5.1.1
+- Nota: IP do host 10.5.1.10 e do target (Jetson) 10.5.1.3
 - Nota: para ajudar usar help cmd ou cmd -?
 
 ## Carregando binario manualmente (superseeded pelo GRUB)
@@ -20,7 +20,7 @@ Nota: para a serial funcionar a Jetson precisa ser flashada com a opção AGX Or
 - Entrar no filesystem FS3, onde há direito de escrita, comando "fs3:"
 Nota: o comando map mostra a alocação do FS3 na EMMC (flash de 64 Gb)
 - Ligar o servidor de TFTP (host PC)
-- Conectar cliente (target) e baixar arquivo: tftp 192.168.0.1 kernel.efi
+- Conectar cliente (target) e baixar arquivo: tftp 10.5.1.10 kernel.efi
 
 ## GRUB
 - Seguir procedimento do grub: https://docs.nvidia.com/jetson/archives/r35.4.1/DeveloperGuide/text/SD/Bootloader/UEFI.html#grub-support, incluindo o passo adicional
@@ -36,8 +36,8 @@ menuentry 'Jetson Linux' {
 }
 menuentry 'XKY' {
         echo "Booting XKY..."
-        net_add_addr efinet0 efinet0 192.168.1.30
-        set root=(tftp,192.168.1.77)
+        net_add_addr efinet0 efinet0 10.5.1.3
+        set root=(tftp,10.5.1.10)
         linux /kernel.efi boot=tftp
         boot
 }
