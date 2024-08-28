@@ -18,9 +18,14 @@ Nota: para a serial funcionar a Jetson precisa ser flashada com a opção AGX Or
 ## Carregando binario manualmente (superseeded pelo GRUB)
 - A imagem do XKY precisa ser buildada, convertida (comando aarch64-linux-gnu-objcopy - ver makefile) 
 - Entrar no filesystem FS3, onde há direito de escrita, comando "fs3:"
-Nota: o comando map mostra a alocação do FS3 na EMMC (flash de 64 Gb)
 - Ligar o servidor de TFTP (host PC)
 - Conectar cliente (target) e baixar arquivo: tftp 10.5.1.10 kernel.efi
+
+Nota: o comando map mostra a alocação do FS3 na EMMC (flash de 64 Gb)
+fs0: contém modulos do uefi
+fs1: utilização desconhecida
+fs2: root file system do ubuntu
+fs3: memória onde conseguimos escrever
 
 ## GRUB
 - Seguir procedimento do grub: https://docs.nvidia.com/jetson/archives/r35.4.1/DeveloperGuide/text/SD/Bootloader/UEFI.html#grub-support, incluindo o passo adicional
