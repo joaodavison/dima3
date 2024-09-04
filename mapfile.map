@@ -12,21 +12,21 @@ Linker script and memory map
 
                 0x0000000080000000                . = ORIGIN (ram_code)
 
-.text           0x0000000080000000      0x4c4
+.text           0x0000000080000000      0x4cc
  *(.text)
- .text          0x0000000080000000       0x68 entry.o
+ .text          0x0000000080000000       0x70 entry.o
                 0x0000000080000000                _start
- .text          0x0000000080000068       0x40 kernel.o
-                0x0000000080000068                kernel_main
-                0x00000000800000a0                kernel_second
- .text          0x00000000800000a8      0x41c console.o
-                0x00000000800000a8                SerialPortReadRegister
-                0x00000000800000d0                SerialPortWriteRegister
-                0x0000000080000108                Tegra16550SerialPortWrite
-                0x00000000800001f8                Tegra16550SerialPortRead
-                0x0000000080000280                Tegra16550SerialPortSetAttributes
-                0x0000000080000350                console_init
-                0x000000008000049c                bsp_putchar
+ .text          0x0000000080000070       0x40 kernel.o
+                0x0000000080000070                kernel_main
+                0x00000000800000a8                kernel_second
+ .text          0x00000000800000b0      0x41c console.o
+                0x00000000800000b0                SerialPortReadRegister
+                0x00000000800000d8                SerialPortWriteRegister
+                0x0000000080000110                Tegra16550SerialPortWrite
+                0x0000000080000200                Tegra16550SerialPortRead
+                0x0000000080000288                Tegra16550SerialPortSetAttributes
+                0x0000000080000358                console_init
+                0x00000000800004a4                bsp_putchar
  *(.rodata)
 
 .rodata.vectors

@@ -1,0 +1,6 @@
+Grub compile
+Procedimento usado para compilar o Grub que será chamado pelo baremetal (ver GRUB(EL1) em notas/integracao_linux_pmk.txt)
+
+1. Baixar o grub-2.06 do repositório https://git.savannah.gnu.org/git/grub.git
+
+2. Configurar para target AARCH64: ./configure --target=aarch64-elf
