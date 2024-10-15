@@ -5,9 +5,10 @@
 - Usar o aplicativo NVidia SDK Manager (https://developer.nvidia.com/sdk-manager, funciona para Ubuntu 20 e 22 apenas, ou seja, not 24)
 Nota: é necessário configurar a USB da seguinte forma:
 sudo su -c "echo -1> /sys/module/usbcore/parameters/autosuspend" 
-- Com o SDK manager aberto, egurar o botão de Force recovery e pressionar o botão de reset
-- O Target hardware será identificado pelo SDK
+- Com o SDK manager aberto, segurar o botão de Force recovery e pressionar o botão de reset
+- O Target Hardware será identificado pelo SDK
 Nota: para a serial funcionar a Jetson precisa ser flashada com a opção AGX Orin "SDK" (confirmar)
+Nota: se for necessário um reset da flash inteira (reinstalar Linux), seguir o procedimento em: https://docs.nvidia.com/jetson/archives/r35.1/DeveloperGuide/text/IN/QuickStart.html#to-flash-the-jetson-developer-kit-operating-software
 
 ## Setup da rede da Jetson
 - Conectar o cabo USB micro-B da Jetson ao PC host
