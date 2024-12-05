@@ -1,7 +1,7 @@
 # UEFI
 
 Because GRUB does not allow allocating memory to specific regions, we have developed an UEFI Application that is able to:
-- Find 'XKY_JETSON_APP.bin' in any filesystem
+- Find 'XKY_JETSON_APP.bin' in any filesystem (Check XKY_bare_example/README.md to find how to obtain this binary)
 - Allocate space in DRAM to place the file into memory
 - Place the file contents into 0x80000000
 - Move program counter to 0x80000000
